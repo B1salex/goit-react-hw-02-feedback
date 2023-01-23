@@ -12,13 +12,15 @@ export class App extends Component {
   };
 
   handleFeedback = e => {
-    if (e === 'Good') {
-      this.setState({ good: this.state.good + 1 });
-    } else if (e === 'Neutral') {
-      this.setState({ neutral: this.state.neutral + 1 });
-    } else if (e === 'Bad') {
-      this.setState({ bad: this.state.bad + 1 });
-    }
+    const keyState = Object.keys(this.state);
+
+    keyState.forEach(key => {
+      if (e.target.value === key) {
+        this.setState(prevState => ({
+          [key]: prevState[key] + 1,
+        }));
+      }
+    });
   };
 
   totalFeedback = () => {
@@ -34,19 +36,22 @@ export class App extends Component {
   };
 
   render() {
+    const keyState = Object.keys(this.state);
     return (
-      <div style={{
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101',
-      }}>
+      <div
+        style={{
+          height: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          fontSize: 40,
+          color: '#010101',
+        }}
+      >
         <Section title="Please leave feedback">
           <FeedbackOptions
-            options={['Good', 'Neutral', 'Bad']}
+            options={keyState}
             onLeaveFeedback={this.handleFeedback}
           />{' '}
         </Section>
