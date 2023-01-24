@@ -11,16 +11,10 @@ export class App extends Component {
     bad: 0,
   };
 
-  handleFeedback = e => {
-    const keyState = Object.keys(this.state);
-
-    keyState.forEach(key => {
-      if (e.target.value === key) {
-        this.setState(prevState => ({
-          [key]: prevState[key] + 1,
-        }));
-      }
-    });
+  handleFeedback = key => {
+    this.setState(prevState => ({
+      [key]: prevState[key] + 1,
+    }));
   };
 
   totalFeedback = () => {
